@@ -1,11 +1,14 @@
 from flask import Blueprint, flash, request, redirect, render_template
+from blueprints import Conf
 import pymysql
 
 auth_bp = Blueprint("auth_bp",__name__,url_prefix="/log_bp")
 
+
 @auth_bp.route('/mylogin', methods=['GET', 'POST'])
 def mylogin():
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='123456', db='demandsys', charset='utf8')
+    host, port, user, password, db, charset = Conf.getDbConf()
+    conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db, charset=charset)
     cur = conn.cursor()
     sql = "SELECT * FROM t_user"
     cur.execute(sql)
