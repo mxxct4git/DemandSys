@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request
-from flask_sqlalchemy import SQLAlchemy
 from blueprints.Auth import auth_bp
 
 app = Flask(__name__)
@@ -8,24 +7,16 @@ app = Flask(__name__)
 app.register_blueprint(auth_bp)
 
 @app.route('/')
-@app.route('/home')
-def home():
+# @app.route('/toLog')
+def toLog():
     return render_template("login.html")
 
 
-@app.route('/register')
-def register():
-    return render_template("register.html")
-
-
-@app.route('/index')
-def index():
-    return render_template("index.html")
-
-
-@app.route('/charts')
-def charts():
-    return render_template("charts.html")
+# 针对iframe方式来跳转
+# 根据传递的参数不同，跳转到对应的页面
+@app.route('/iframe/<name>', methods=['GET'])
+def iframeRouter(name):
+    return render_template(name)
 
 
 if __name__ == '__main__':

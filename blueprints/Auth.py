@@ -1,33 +1,24 @@
 from flask import Blueprint, flash, request, redirect, render_template
-from blueprints import Conf
-import pymysql
+from blueprints import DbLinks as db
 
 auth_bp = Blueprint("auth_bp",__name__,url_prefix="/log_bp")
 
 
-@auth_bp.route('/mylogin', methods=['GET', 'POST'])
-def mylogin():
-    host, port, user, password, db, charset = Conf.getDbConf()
-    conn = pymysql.connect(host=host, port=port, user=user, password=password, db=db, charset=charset)
-    cur = conn.cursor()
-    sql = "SELECT * FROM t_user"
-    cur.execute(sql)
-    res = cur.fetchall()
-    conn.close()
-    print("###")
-    print(res)
-    print(len(res))
-    for item in res:
-        print(item)
-    print(type(res))
-
-
+@auth_bp.route('/login', methods=['GET', 'POST'])
+def login():
     if request.method == 'POST':
-        print("登录用户名")
-        print(request.form["username"])
-        print(request.form["password"])
-        return render_template('index.html')
-    return render_template("test.html")
+        print("登录")
+        username = request.form["username"]
+        password = request.form["password"]
+        conn = db.getConn()
+        sql = "SELECT * FROM t_user where username = '" + username + "' and password = '" + password + "'"
+        res = db.getSelRes(conn, sql)
+        conn.close()
+        if len(res) == 1:
+            return render_template('index.html')
+        else:
+            print("用户名或密码错误")
+    return render_template("login.html", warningContent = "用户名或密码错误，请重新输入")
     # form = Login_Form()
     # if form.validate_on_submit():
     #     user = Users.query.filter_by(name=form.name.data).first()
