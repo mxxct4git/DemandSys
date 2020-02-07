@@ -5,6 +5,9 @@ class User_mod():
         self.username = None
         self.password = None
         self.truename = None
+        self.domain = None
+        self.role = None
+        self.permission = None
 
     def todict(self):
         return self.__dict__
