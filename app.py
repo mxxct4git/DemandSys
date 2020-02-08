@@ -1,10 +1,14 @@
 from flask import Flask, current_app, render_template, redirect, request
 from blueprints.Auth import auth_bp
+from blueprints.Demand import demand_bp
 
 app = Flask(__name__)
 
 # 注册认证类模块蓝图，包括登录、注册功能
 app.register_blueprint(auth_bp)
+
+# 注册需求类模块蓝图，包括增改查功能
+app.register_blueprint(demand_bp)
 
 @app.route('/')
 # @app.route('/toLog')

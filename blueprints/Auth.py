@@ -5,7 +5,10 @@ from flask import Blueprint, current_app, flash, request, redirect, render_templ
 from blueprints import DbLinks as db
 from models.User import User_mod
 
-auth_bp = Blueprint("auth_bp", __name__, url_prefix="/log_bp")
+# 第一个auth_bp是在url_for中调用使用的，第二个auth_bp是在网页地址栏中呈现的
+# action="{{ url_for("auth_bp.login") }}" 此处的login指的是方法名
+# http://127.0.0.1:5000/auth_bp/login 此处的login指的是route后面填写的名称
+auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth_bp")
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -14,14 +17,14 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         conn = db.getConn()
-        sql = "select u.itcode, u.username, u.password, u.truename, " \
+        sql = "select u.id, u.itcode, u.username, u.password, u.truename, " \
               "group_concat(udr.domain_code) as dcode, group_concat(d.name) as dname, " \
               "group_concat(udr.role_code) as rcode, group_concat(r.name) as rname " \
               "from (select * from t_user u where username = '" + username + "' and password = '" + password + "')u " \
                                                                                                                "left join t_user_domain_role udr on u.id = udr.user_id " \
                                                                                                                "left join t_domain d on udr.domain_code = d.code " \
                                                                                                                "left join t_role r on udr.role_code = r.code " \
-                                                                                                               "group by u.itcode, u.username, u.password, u.truename"
+                                                                                                               "group by u.id, u.itcode, u.username, u.password, u.truename"
         res = db.getSelRes(conn, sql)
         conn.close()
         if len(res) > 0:
