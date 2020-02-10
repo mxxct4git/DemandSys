@@ -20,10 +20,13 @@ class Demand_mod():
         self.dev_users = demandInfo[0][10]
         # 文档地址
         self.confluence = demandInfo[0][11]
+        # 要求完成时间
+        self.expect_finishtime = demandInfo[0][12]
         # 附加描述
-        self.description = demandInfo[0][12]
+        self.description = demandInfo[0][13]
         # 当前操作编码 1新增 2修改
-        self.modfiy_code = demandInfo[0][13]
+        self.modfiy_code = demandInfo[0][14]
+
 
     def todict(self):
         return self.__dict__

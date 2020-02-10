@@ -84,22 +84,31 @@
                 <label for="L_email" class="layui-form-label">
                     <span class="x-red">*</span>开发人员</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="dev_userid" value="0" title="张三">
-                    <input type="checkbox" name="dev_userid" value="1" title="李四">
-                    <input type="checkbox" name="dev_userid" value="2" title="王五">
+                    <input type="checkbox" name="dev_userid" value="1" title="张三">
+                    <input type="checkbox" name="dev_userid" value="2" title="李四">
+                    <input type="checkbox" name="dev_userid" value="3" title="王五">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
+                <label for="confluence" class="layui-form-label">
                     <span class="x-red">*</span>文档地址</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="confluence" required="" lay-verify="" autocomplete="off"
+                    <input type="text" name="confluence" required="" lay-verify="url" autocomplete="off"
                            class="layui-input"></div>
+            </div>
+            <div class="layui-form-item">
+                <label for="expect_finishtime" class="layui-form-label" id="finishtime-1">
+                    <span class="x-red">*</span>要求完成时间</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" placeholder="点击选择日期" name="expect_finishtime" id="finishtime"
+                           required="">
+                </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label for="description" class="layui-form-label">描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="可填写附加内容" id="description" name="description" class="layui-textarea"></textarea>
+                    <textarea placeholder="可填写附加内容" id="description" name="description"
+                              class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -110,11 +119,20 @@
     </div>
 </div>
 <script>
-    layui.use(['form', 'layer'],
+    layui.use(['laydate', 'form', 'layer'],
         function () {
             $ = layui.jquery;
             var form = layui.form,
                 layer = layui.layer;
+
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#finishtime' //指定元素
+                , eventElem: '#finishtime-1'
+                , trigger: 'click'
+            });
 
             //自定义验证规则
             form.verify({

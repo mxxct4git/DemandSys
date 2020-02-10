@@ -3,7 +3,7 @@
 
 from flask import Blueprint, current_app, flash, request, redirect, render_template
 from blueprints import DbLinks as db
-from models.User import User_mod
+from model.User import User_mod
 
 # 第一个auth_bp是在url_for中调用使用的，第二个auth_bp是在网页地址栏中呈现的
 # action="{{ url_for("auth_bp.login") }}" 此处的login指的是方法名

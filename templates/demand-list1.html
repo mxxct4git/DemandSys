@@ -93,6 +93,7 @@
                             <th>开发人员</th>
                             <th>提出时间</th>
                             <th>修改时间</th>
+                            <th>要求完成时间</th>
                             <th>文档地址</th>
                             <th>操作</th>
                         </tr>
@@ -108,8 +109,9 @@
                             <td>待确认</td>
                             <td>ennenergy_icome_label_employee_attribute_h</td>
                             <td>刘芳彤</td>
-                            <td>2020-02-03</td>
-                            <td>2020-02-05</td>
+                            <td>2020-02-03 17:31</td>
+                            <td>2020-02-05 10:22</td>
+                            <td>2020-02-09</td>
                             <td>http://confluence.ennew.ai/pages/viewpage.action?pageId=286818317</td>
                             <td class="td-manage">
                                 <a title="查看" onclick="xadmin.open('编辑','/iframe/order-view.html')" href="javascript:;">
@@ -144,11 +146,13 @@
         //执行一个laydate实例
         laydate.render({
             elem: '#start' //指定元素
+            , trigger: 'click'
         });
 
         //执行一个laydate实例
         laydate.render({
             elem: '#end' //指定元素
+            , trigger: 'click'
         });
     });
 
